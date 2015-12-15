@@ -93,10 +93,12 @@ public class FXMLController implements Initializable {
             String data = inboundEvent.readData(String.class);
             int id = Integer.parseInt(inboundEvent.getId());
             Label label = labels[id];
-            TranslateTransition t = transitions[id];
             Platform.runLater(()->{
                 label.setText(data);
-                new Timeline(new KeyFrame(Duration.millis(500), e-> t.play())).play();
+                TranslateTransition t = new TranslateTransition(Duration.millis(300), label);
+                t.setFromX(0);
+                t.setToX(-200);
+                t.play();
             });
         }, "message-client");
         eventSource.open();
